@@ -6,6 +6,7 @@ const keys = require('./credentials.json');
 
 const app = express();
 app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 const SHEET_ID = '1ctXkgyeG8xm2E8FXpaRO3FlpGo2vRopZ2Xm0cxtrAkM';
@@ -79,6 +80,8 @@ async function startScraping() {
   }
 }
 
+const PORT = process.env.PORT || 5000;
+
 app.post('/start', async (req, res) => {
   if (scraping) return res.json({ status: true, message: 'Already running' });
 
@@ -104,7 +107,6 @@ app.post('/stop', (req, res) => {
   res.json({ status: true, message: 'Scraping stopped' });
 });
 
-// New endpoint: return current scraping state and prices
 app.get('/state', (req, res) => {
   res.json({
     status: true,
@@ -113,4 +115,5 @@ app.get('/state', (req, res) => {
   });
 });
 
-app.listen(5000, () => console.log('Server running at http://localhost:5000'));
+
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
