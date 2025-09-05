@@ -80,7 +80,7 @@ async function startScraping() {
   }
 }
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 app.post('/start', async (req, res) => {
   if (scraping) return res.json({ status: true, message: 'Already running' });
@@ -116,4 +116,8 @@ app.get('/state', (req, res) => {
 });
 
 
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
+
